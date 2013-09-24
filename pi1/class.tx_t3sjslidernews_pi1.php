@@ -375,11 +375,12 @@ class tx_t3sjslidernews_pi1 extends tslib_pibase {
       $pageRecords[$key] = $row;
       $pageRecords[$key]['image'] = t3lib_div::trimExplode(',', $pageRecords[$key]['media']); 
       $pageRecords[$key]['image'] = $pageRecords[$key]['image']['0'];
-      unset($pageRecords[$key]['media']);
       if ( $GLOBALS['TSFE']->sys_language_content ) {
         $origImg = $pageRecords[$key]['image'];
         $OLmode = $GLOBALS['TSFE']->sys_language_mode == 'strict' ? 'hideNonTranslated' : '';
-    		$pageRecords[$key] = $GLOBALS['TSFE']->sys_page->getPageOverlay($pageRecords[$key], $GLOBALS['TSFE']->sys_language_content, $OLmode);
+    	$pageRecords[$key] = $GLOBALS['TSFE']->sys_page->getPageOverlay($pageRecords[$key], $GLOBALS['TSFE']->sys_language_content, $OLmode);
+		$pageRecords[$key]['image'] = t3lib_div::trimExplode(',', $pageRecords[$key]['media']);
+    	$pageRecords[$key]['image'] = $pageRecords[$key]['image']['0'];
         $pageRecords[$key]['image'] = $pageRecords[$key]['image'] ? $pageRecords[$key]['image'] : $origImg;
         if ( $GLOBALS['TSFE']->sys_language_mode == 'strict' && !$pageRecords[$key]['_PAGES_OVERLAY'] ) $unset = TRUE;
       }
